@@ -1,0 +1,1170 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #ff6b35;
+  --primary-dark: #f85d2d;
+  --secondary: #f7931e;
+  --accent: #fdb833;
+  --success: #1abc9c;
+  --danger: #e74c3c;
+  --light: #f8f9fa;
+  --dark: #2c3e50;
+  --muted: #7f8c8d;
+  --orange-gradient: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9fafb;
+  color: var(--dark);
+}
+
+/* Navigation */
+.bg-gradient {
+  background: var(--orange-gradient);
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.25);
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  color: white !important;
+  font-weight: 700;
+}
+
+/* Hero Section */
+.hero-section {
+  background: var(--orange-gradient);
+  color: white;
+  padding: 80px 20px;
+  position: relative;
+  overflow: hidden;
+  min-height: 600px;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.08);
+  z-index: 0;
+}
+
+/* Added creative floating particles animation */
+.hero-overlay::before {
+  content: "";
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  top: -50px;
+  right: 10%;
+  animation: float 6s ease-in-out infinite;
+}
+
+.hero-overlay::after {
+  content: "";
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 50%;
+  bottom: 10%;
+  left: 5%;
+  animation: float 8s ease-in-out infinite reverse;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-bus {
+  font-size: 150px;
+  color: rgba(255, 255, 255, 0.15);
+  position: relative;
+  z-index: 1;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-30px);
+  }
+}
+
+/* Added pulse animation for pricing */
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(255, 107, 53, 0);
+  }
+}
+
+/* Added bounce animation */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Added scale-in animation */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Added slide from left */
+@keyframes slideFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Added rotate animation */
+@keyframes rotateIn {
+  from {
+    opacity: 0;
+    transform: rotate(-10deg) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.slide-up {
+  animation: slideUp 0.8s ease-out;
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+.bounce {
+  animation: bounce 0.5s ease-in-out;
+}
+
+.scale-in {
+  animation: scaleIn 0.5s ease-out;
+}
+
+.slide-from-left {
+  animation: slideFromLeft 0.6s ease-out;
+}
+
+.rotate-in {
+  animation: rotateIn 0.6s ease-out;
+}
+
+/* Search Section */
+.search-section {
+  background: white;
+  padding: 40px 20px;
+}
+
+.search-card {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  border: 2px solid rgba(255, 107, 53, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+}
+
+.search-card h2 {
+  color: var(--dark);
+  font-weight: 700;
+  background: var(--orange-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.input-modern {
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.input-modern:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.1);
+}
+
+.btn-swap {
+  background: var(--light);
+  border: 2px solid #e5e7eb;
+  color: var(--primary);
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.btn-swap:hover {
+  background: var(--primary);
+  color: white;
+  transform: rotate(180deg) scale(1.1);
+}
+
+/* Features Section */
+.features-section {
+  background: linear-gradient(135deg, #ffffff 0%, #faf8f3 100%);
+  padding: 80px 20px;
+}
+
+.features-section h2 {
+  color: var(--dark);
+  font-weight: 700;
+  margin-bottom: 60px;
+}
+
+.feature-card {
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 40px 30px;
+  text-align: center;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Added creative hover effects */
+.feature-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--orange-gradient);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.feature-card:hover::before {
+  transform: scaleX(1);
+}
+
+.feature-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-10px);
+  box-shadow: 0 20px 50px rgba(255, 107, 53, 0.15);
+}
+
+.feature-icon {
+  width: 70px;
+  height: 70px;
+  background: var(--orange-gradient);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 32px;
+  margin: 0 auto 20px;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+  transform: scale(1.15) rotate(10deg);
+}
+
+.feature-card h5 {
+  color: var(--dark);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.feature-card p {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Search Results */
+.search-summary {
+  background: var(--orange-gradient);
+  color: white;
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Added animated background pattern */
+.search-summary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 400px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  animation: float 10s ease-in-out infinite;
+}
+
+.search-info h4 {
+  margin-bottom: 5px;
+  position: relative;
+  z-index: 1;
+}
+
+.search-info p {
+  opacity: 0.95;
+  position: relative;
+  z-index: 1;
+}
+
+.results-section {
+  padding: 40px 20px;
+}
+
+.filter-card {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  border: 2px solid #e5e7eb;
+  height: fit-content;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.filter-group {
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 20px;
+}
+
+.filter-group:last-child {
+  border-bottom: none;
+}
+
+.filter-group h6 {
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 15px;
+}
+
+.form-check {
+  margin-bottom: 10px;
+}
+
+/* Bus Results */
+.bus-results {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.bus-card {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  border: 2px solid #e5e7eb;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Added left border accent */
+.bus-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: var(--orange-gradient);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.4s ease;
+}
+
+.bus-card:hover::before {
+  transform: scaleY(1);
+}
+
+.bus-card:hover {
+  box-shadow: 0 15px 40px rgba(255, 107, 53, 0.15);
+  transform: translateY(-5px);
+}
+
+.bus-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.bus-header h5 {
+  margin: 0;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.rating {
+  background: linear-gradient(135deg, #fdb833 0%, #f7931e 100%);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px rgba(253, 184, 51, 0.3);
+}
+
+.bus-details {
+  margin-bottom: 20px;
+}
+
+.time-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.time-large {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--dark);
+  margin: 0;
+}
+
+.journey-duration {
+  color: var(--primary);
+  font-size: 1.3rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+.bus-amenities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.amenity-tag {
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(247, 147, 30, 0.1));
+  color: var(--primary);
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 107, 53, 0.2);
+}
+
+.bus-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.price {
+  color: var(--success);
+  font-weight: 900;
+  margin: 0;
+  font-size: 1.5rem;
+  animation: pulse 2s infinite;
+}
+
+/* Changed currency to Indian Rupees */
+.currency {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* Booking Section */
+.progress-section {
+  background: white;
+  padding: 30px 20px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.progress-steps {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  flex: 1;
+}
+
+.step-number {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  transition: all 0.4s ease;
+  border: 2px solid transparent;
+}
+
+.step.active .step-number {
+  background: var(--orange-gradient);
+  color: white;
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+  animation: scaleIn 0.4s ease;
+}
+
+.step.completed .step-number {
+  background: var(--success);
+  color: white;
+  box-shadow: 0 4px 12px rgba(26, 188, 156, 0.3);
+}
+
+.step p {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--muted);
+  margin: 0;
+}
+
+.step.active p,
+.step.completed p {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.step-line {
+  flex: 1;
+  height: 3px;
+  background: #e5e7eb;
+  transition: background 0.4s ease;
+}
+
+.step-line.completed {
+  background: var(--success);
+}
+
+/* Seat Selection */
+.booking-section {
+  padding: 40px 20px;
+}
+
+.seat-selection-card {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  border: 2px solid #e5e7eb;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.bus-layout {
+  background: linear-gradient(135deg, #faf8f3 0%, #f5f5f5 100%);
+  border-radius: 16px;
+  padding: 40px 20px;
+  text-align: center;
+  border: 2px solid #e5e7eb;
+}
+
+.bus-front {
+  margin-bottom: 40px;
+}
+
+.bus-front i {
+  font-size: 40px;
+  color: var(--primary);
+  margin-bottom: 10px;
+  display: block;
+  animation: rotateIn 0.6s ease;
+}
+
+.seats-container {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.seat-row {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.seat {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  background: white;
+  color: var(--dark);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.seat::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: left 0.3s ease;
+}
+
+.seat:hover:not(.booked) {
+  border-color: var(--primary);
+  transform: scale(1.1) rotate(5deg);
+}
+
+.seat.selected {
+  background: var(--orange-gradient);
+  color: white;
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+  animation: scaleIn 0.3s ease;
+}
+
+.seat.booked {
+  background: #e5e7eb;
+  color: var(--muted);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.seat-legend {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 25px;
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.05), rgba(247, 147, 30, 0.05));
+  border-radius: 12px;
+}
+
+.seat-icon {
+  width: 35px;
+  height: 35px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.seat-icon.available {
+  background: white;
+}
+
+.seat-icon.selected {
+  background: var(--orange-gradient);
+  border-color: var(--primary);
+}
+
+.seat-icon.booked {
+  background: #e5e7eb;
+}
+
+/* Booking Summary */
+.booking-summary-card {
+  background: white;
+  border-radius: 16px;
+  padding: 35px;
+  border: 2px solid #e5e7eb;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.booking-summary-card h5 {
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 20px;
+}
+
+.booking-summary-card p {
+  margin: 0;
+}
+
+/* Form Card */
+.form-card {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  border: 2px solid #e5e7eb;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.form-card h4 {
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 30px;
+}
+
+.passenger-form {
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.05), rgba(247, 147, 30, 0.05));
+  padding: 25px;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 107, 53, 0.1);
+  transition: all 0.3s ease;
+}
+
+.passenger-form:hover {
+  border-color: var(--primary);
+  box-shadow: 0 5px 15px rgba(255, 107, 53, 0.1);
+}
+
+.passenger-form h6 {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* Payment Section */
+.payment-section {
+  padding: 40px 20px;
+}
+
+.payment-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.payment-method-card {
+  position: relative;
+}
+
+.payment-method-card .form-check-input {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.payment-method-card .form-check-label {
+  display: block;
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px 20px 20px 60px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.payment-method-card .form-check-input:checked + .form-check-label {
+  border-color: var(--primary);
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.05), rgba(247, 147, 30, 0.05));
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.15);
+}
+
+.payment-method-card:hover .form-check-label {
+  border-color: var(--primary);
+}
+
+.payment-method-card p {
+  margin: 5px 0 0 0;
+}
+
+.card-details-form {
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.05), rgba(247, 147, 30, 0.05));
+  padding: 30px;
+  border-radius: 12px;
+  margin-top: 30px;
+  border: 2px solid rgba(255, 107, 53, 0.1);
+}
+
+/* Confirmation Section */
+.confirmation-section {
+  padding: 40px 20px;
+}
+
+.confirmation-card {
+  background: white;
+  border-radius: 16px;
+  padding: 50px;
+  border: 2px solid #e5e7eb;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+}
+
+.success-animation {
+  animation: slideUp 0.6s ease-out;
+}
+
+.success-animation i {
+  font-size: 100px;
+  color: var(--success);
+  animation: rotateIn 0.6s ease-out;
+}
+
+.confirmation-card h2 {
+  color: var(--dark);
+  font-weight: 900;
+  margin-bottom: 10px;
+  background: var(--orange-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.detail-box {
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.05), rgba(247, 147, 30, 0.05));
+  border-radius: 12px;
+  padding: 25px;
+  border: 2px solid rgba(255, 107, 53, 0.1);
+  transition: all 0.3s ease;
+}
+
+.detail-box:hover {
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.15);
+}
+
+.large-text {
+  font-size: 1.4rem;
+}
+
+.passenger-list {
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.05), rgba(247, 147, 30, 0.05));
+  border-radius: 12px;
+  padding: 30px;
+  border: 2px solid rgba(255, 107, 53, 0.1);
+}
+
+.passenger-item {
+  padding: 15px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+
+.passenger-item:hover {
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.1);
+}
+
+/* Footer */
+.footer-section {
+  background: var(--orange-gradient);
+  color: white;
+}
+
+.footer-section h5 {
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.footer-section ul {
+  list-style: none;
+}
+
+.footer-section a {
+  color: rgba(255, 255, 255, 0.85);
+  transition: all 0.3s ease;
+}
+
+.footer-section a:hover {
+  color: white;
+  transform: translateX(5px);
+}
+
+.social-links {
+  display: flex;
+  gap: 15px;
+}
+
+.social-links a {
+  width: 45px;
+  height: 45px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(1.2) rotate(10deg);
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--orange-gradient);
+  border: none;
+  border-radius: 10px;
+  padding: 14px 28px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-primary:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(255, 107, 53, 0.4);
+}
+
+.btn-outline-primary {
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  background: white;
+  border-radius: 10px;
+  padding: 12px 24px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+  background: var(--orange-gradient);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 60px 20px;
+    min-height: 400px;
+  }
+
+  .hero-section .display-4 {
+    font-size: 2rem;
+  }
+
+  .search-card {
+    padding: 25px;
+  }
+
+  .seat-row {
+    gap: 10px;
+  }
+
+  .seat {
+    width: 40px;
+    height: 40px;
+    font-size: 0.85rem;
+  }
+
+  .time-large {
+    font-size: 1.2rem;
+  }
+
+  .time-section {
+    gap: 10px;
+  }
+
+  .bus-card {
+    padding: 20px;
+  }
+
+  .bus-footer {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .bus-footer .btn {
+    width: 100%;
+  }
+
+  .progress-steps {
+    gap: 5px;
+  }
+
+  .step-number {
+    width: 35px;
+    height: 35px;
+    font-size: 0.85rem;
+  }
+
+  .step p {
+    font-size: 0.75rem;
+  }
+
+  .confirmation-card {
+    padding: 25px;
+  }
+
+  .seat-legend {
+    gap: 20px;
+    padding: 15px;
+    font-size: 0.85rem;
+  }
+
+  .filter-card {
+    margin-bottom: 30px;
+  }
+
+  .payment-method-card .form-check-label {
+    padding: 15px 15px 15px 50px;
+  }
+
+  .detail-box {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-card {
+    padding: 15px;
+  }
+
+  .hero-section {
+    padding: 40px 15px;
+  }
+
+  .feature-card {
+    padding: 20px;
+  }
+
+  .feature-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+  }
+
+  .time-large {
+    font-size: 1rem;
+  }
+
+  .bus-amenities {
+    gap: 5px;
+  }
+
+  .amenity-tag {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+  }
+
+  .seat {
+    width: 35px;
+    height: 35px;
+    font-size: 0.75rem;
+  }
+
+  .seat-legend {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .progress-steps {
+    gap: 2px;
+  }
+
+  .step p {
+    display: none;
+  }
+
+  .confirmation-card {
+    padding: 15px;
+  }
+
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .action-buttons .btn {
+    width: 100%;
+  }
+
+  .form-card {
+    padding: 20px;
+  }
+
+  .seat-selection-card {
+    padding: 20px;
+  }
+
+  .bus-layout {
+    padding: 20px 10px;
+  }
+
+  .booking-summary-card {
+    padding: 20px;
+  }
+}

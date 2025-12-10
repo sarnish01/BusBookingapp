@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmed - BusGo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient sticky-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="fas fa-bus me-2"></i>BusGo
+            </a>
+        </div>
+    </nav>
+
+    <!-- Progress Bar -->
+    <div class="progress-section">
+        <div class="container">
+            <div class="progress-steps">
+                <div class="step completed">
+                    <div class="step-number"><i class="fas fa-check"></i></div>
+                    <p>Seats</p>
+                </div>
+                <div class="step-line completed"></div>
+                <div class="step completed">
+                    <div class="step-number"><i class="fas fa-check"></i></div>
+                    <p>Passenger</p>
+                </div>
+                <div class="step-line completed"></div>
+                <div class="step completed">
+                    <div class="step-number"><i class="fas fa-check"></i></div>
+                    <p>Payment</p>
+                </div>
+                <div class="step-line completed"></div>
+                <div class="step completed">
+                    <div class="step-number"><i class="fas fa-check"></i></div>
+                    <p>Confirm</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Section -->
+    <section class="confirmation-section py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="confirmation-card text-center">
+                        <div class="success-animation mb-4">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+
+                        <h2 class="mb-2">Booking Confirmed!</h2>
+                        <p class="text-muted mb-4">Your bus ticket has been successfully booked.</p>
+
+                        <div class="confirmation-details mb-5">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <div class="detail-box">
+                                        <p class="text-muted small mb-1">Confirmation Number</p>
+                                        <p id="confirmNumber" class="fw-bold large-text">BG123456789</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="detail-box">
+                                        <p class="text-muted small mb-1">Booking Date</p>
+                                        <p class="fw-bold large-text" id="bookingDate">-</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="detail-box">
+                                        <p class="text-muted small mb-1">Bus Details</p>
+                                        <p id="confirmBus" class="fw-bold">-</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="detail-box">
+                                        <p class="text-muted small mb-1">Journey Date</p>
+                                        <p id="confirmDate" class="fw-bold">-</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="detail-box">
+                                        <p class="text-muted small mb-1">Selected Seats</p>
+                                        <p id="confirmSeats" class="fw-bold">-</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="detail-box">
+                                        <p class="text-muted small mb-1">Total Amount</p>
+                                        <p id="confirmTotal" class="fw-bold text-success">-</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="passenger-list mb-5">
+                            <h5 class="mb-3">Passengers</h5>
+                            <div id="passengersList"></div>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            A confirmation email has been sent to your registered email address. Please keep your booking reference safe.
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="btn btn-primary me-2" onclick="downloadTicket()">Download E-Ticket</button>
+                            <a href="index.html" class="btn btn-outline-primary">Back to Home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-section mt-5">
+        <div class="container py-4 text-center">
+            <p>&copy; 2025 BusGo. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const confirmationNumber = localStorage.getItem('confirmationNumber') || 'BG123456789';
+        const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats')) || [];
+        const bus = JSON.parse(localStorage.getItem('selectedBus')) || {};
+        const searchData = JSON.parse(localStorage.getItem('searchData')) || {};
+        const passengerData = JSON.parse(localStorage.getItem('passengerData')) || [];
+
+        function displayConfirmation() {
+            const baseFare = (bus.price * 83) * selectedSeats.length;
+            const taxes = Math.round(baseFare * 0.1 * 100) / 100;
+            const total = baseFare + taxes;
+
+            document.getElementById('confirmNumber').textContent = confirmationNumber;
+            document.getElementById('bookingDate').textContent = new Date().toLocaleDateString();
+            document.getElementById('confirmBus').textContent = bus.name || '-';
+            document.getElementById('confirmDate').textContent = searchData.date || '-';
+            document.getElementById('confirmSeats').textContent = selectedSeats.join(', ');
+            document.getElementById('confirmTotal').textContent = '₹' + total.toFixed(2);
+
+            // Display passengers
+            const passengersList = document.getElementById('passengersList');
+            passengersList.innerHTML = passengerData.map((p, i) => `
+                <div class="passenger-item mb-2">
+                    <p class="mb-0"><strong>${i + 1}. ${p.name}</strong> - Seat ${selectedSeats[i]}</p>
+                    <p class="text-muted small mb-0">${p.email} | ${p.phone}</p>
+                </div>
+            `).join('');
+        }
+
+        function downloadTicket() {
+            alert('E-Ticket download functionality would be implemented here.\n\nConfirmation Number: ' + confirmationNumber);
+        }
+
+        displayConfirmation();
+    </script>
+</body>
+</html>

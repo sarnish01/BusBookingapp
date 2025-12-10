@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - BusGo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient sticky-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="fas fa-bus me-2"></i>BusGo
+            </a>
+        </div>
+    </nav>
+
+    <!-- Progress Bar -->
+    <div class="progress-section">
+        <div class="container">
+            <div class="progress-steps">
+                <div class="step completed">
+                    <div class="step-number"><i class="fas fa-check"></i></div>
+                    <p>Seats</p>
+                </div>
+                <div class="step-line completed"></div>
+                <div class="step completed">
+                    <div class="step-number"><i class="fas fa-check"></i></div>
+                    <p>Passenger</p>
+                </div>
+                <div class="step-line completed"></div>
+                <div class="step active">
+                    <div class="step-number">3</div>
+                    <p>Payment</p>
+                </div>
+                <div class="step-line"></div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <p>Confirm</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Section -->
+    <section class="payment-section py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Payment Methods -->
+                <div class="col-lg-8 mb-4">
+                    <div class="form-card">
+                        <h4 class="mb-4">Select Payment Method</h4>
+                        
+                        <div class="payment-methods mb-4">
+                            <div class="form-check payment-method-card fade-in">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="credit" value="credit" checked>
+                                <label class="form-check-label w-100" for="credit">
+                                    <i class="fas fa-credit-card me-2"></i>
+                                    <strong>Credit / Debit Card</strong>
+                                    <p class="text-muted small mb-0">Visa, Mastercard, American Express</p>
+                                </label>
+                            </div>
+
+                            <div class="form-check payment-method-card fade-in">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="upi" value="upi">
+                                <label class="form-check-label w-100" for="upi">
+                                    <i class="fas fa-mobile-alt me-2"></i>
+                                    <strong>UPI</strong>
+                                    <p class="text-muted small mb-0">Google Pay, PhonePe, Paytm</p>
+                                </label>
+                            </div>
+
+                            <div class="form-check payment-method-card fade-in">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="wallet" value="wallet">
+                                <label class="form-check-label w-100" for="wallet">
+                                    <i class="fas fa-wallet me-2"></i>
+                                    <strong>Digital Wallet</strong>
+                                    <p class="text-muted small mb-0">Apple Pay, Google Wallet</p>
+                                </label>
+                            </div>
+
+                            <div class="form-check payment-method-card fade-in">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="net-banking" value="net-banking">
+                                <label class="form-check-label w-100" for="net-banking">
+                                    <i class="fas fa-university me-2"></i>
+                                    <strong>Net Banking</strong>
+                                    <p class="text-muted small mb-0">All major banks supported</p>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Card Details (shown for credit card) -->
+                        <div id="cardDetails" class="card-details-form">
+                            <h6 class="mb-3">Card Details</h6>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label class="form-label">Card Number</label>
+                                    <input type="text" class="form-control input-modern" placeholder="1234 5678 9012 3456" maxlength="19">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Expiry Date</label>
+                                    <input type="text" class="form-control input-modern" placeholder="MM/YY" maxlength="5">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">CVV</label>
+                                    <input type="text" class="form-control input-modern" placeholder="123" maxlength="3">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Cardholder Name</label>
+                                    <input type="text" class="form-control input-modern" placeholder="John Doe">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Checkbox -->
+                        <div class="form-check mt-4">
+                            <input class="form-check-input" type="checkbox" id="agree" required>
+                            <label class="form-check-label" for="agree">
+                                I agree to the terms and conditions and privacy policy
+                            </label>
+                        </div>
+
+                        <button class="btn btn-primary btn-lg w-100 mt-4" onclick="processPayment()">Complete Payment</button>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="col-lg-4">
+                    <div class="booking-summary-card sticky-top">
+                        <h5>Order Summary</h5>
+                        <hr>
+                        
+                        <div class="mb-3">
+                            <p class="text-muted small mb-1">Bus</p>
+                            <p id="paymentBus" class="fw-bold">-</p>
+                        </div>
+
+                        <div class="mb-3">
+                            <p class="text-muted small mb-1">Seats</p>
+                            <p id="paymentSeats" class="fw-bold">-</p>
+                        </div>
+
+                        <div class="mb-3">
+                            <p class="text-muted small mb-1">Route</p>
+                            <p id="paymentRoute" class="fw-bold">-</p>
+                        </div>
+
+                        <div class="mb-3">
+                            <p class="text-muted small mb-1">Date</p>
+                            <p id="paymentDate" class="fw-bold">-</p>
+                        </div>
+
+                        <hr>
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Fare</span>
+                                <span id="paymentFare">₹0</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Taxes & Fees</span>
+                                <span id="paymentTaxes">₹0</span>
+                            </div>
+                            <div class="d-flex justify-content-between fw-bold" style="font-size: 1.2rem;">
+                                <span>Total</span>
+                                <span id="paymentTotal" class="text-primary">₹0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-section mt-5">
+        <div class="container py-4 text-center">
+            <p>&copy; 2025 BusGo. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats')) || [];
+        const bus = JSON.parse(localStorage.getItem('selectedBus')) || {};
+        const searchData = JSON.parse(localStorage.getItem('searchData')) || {};
+
+        function updateSummary() {
+            const baseFare = (bus.price * 83) * selectedSeats.length;
+            const taxes = Math.round(baseFare * 0.1 * 100) / 100;
+            const total = baseFare + taxes;
+
+            document.getElementById('paymentBus').textContent = bus.name || '-';
+            document.getElementById('paymentSeats').textContent = selectedSeats.join(', ');
+            document.getElementById('paymentRoute').textContent = `${searchData.from} → ${searchData.to}`;
+            document.getElementById('paymentDate').textContent = searchData.date || '-';
+            document.getElementById('paymentFare').textContent = '₹' + baseFare.toFixed(2);
+            document.getElementById('paymentTaxes').textContent = '₹' + taxes.toFixed(2);
+            document.getElementById('paymentTotal').textContent = '₹' + total.toFixed(2);
+        }
+
+        function processPayment() {
+            if (!document.getElementById('agree').checked) {
+                alert('Please agree to terms and conditions');
+                return;
+            }
+
+            // Generate confirmation
+            const confirmationNumber = 'BG' + Math.random().toString(36).substr(2, 9).toUpperCase();
+            localStorage.setItem('confirmationNumber', confirmationNumber);
+            window.location.href = 'confirmation.html';
+        }
+
+        // Show/hide card details based on payment method
+        document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const cardDetails = document.getElementById('cardDetails');
+                if (this.value === 'credit') {
+                    cardDetails.style.display = 'block';
+                } else {
+                    cardDetails.style.display = 'none';
+                }
+            });
+        });
+
+        updateSummary();
+    </script>
+</body>
+</html>

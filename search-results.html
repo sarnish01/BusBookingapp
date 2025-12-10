@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - BusGo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient sticky-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="fas fa-bus me-2"></i>BusGo
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Summary -->
+    <section class="search-summary">
+        <div class="container">
+            <div class="search-info">
+                <h4 id="searchTitle">Searching for buses...</h4>
+                <p id="searchDetails"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results-section py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Filters Sidebar -->
+                <div class="col-lg-3 mb-4">
+                    <div class="filter-card">
+                        <h5 class="mb-4">Filters</h5>
+                        
+                        <div class="filter-group mb-4">
+                            <h6>Price Range</h6>
+                            <input type="range" class="form-range" id="priceRange" min="10" max="200" value="200">
+                            <div class="d-flex justify-content-between mt-2">
+                                <span>$10</span>
+                                <span id="priceValue">$200</span>
+                            </div>
+                        </div>
+
+                        <div class="filter-group mb-4">
+                            <h6>Bus Type</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="ac" checked>
+                                <label class="form-check-label">AC</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="nonAc" checked>
+                                <label class="form-check-label">Non-AC</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="sleeper">
+                                <label class="form-check-label">Sleeper</label>
+                            </div>
+                        </div>
+
+                        <div class="filter-group">
+                            <h6>Departure Time</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="morning" checked>
+                                <label class="form-check-label">Morning (6am-12pm)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="afternoon" checked>
+                                <label class="form-check-label">Afternoon (12pm-6pm)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="evening" checked>
+                                <label class="form-check-label">Evening (6pm-12am)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bus Results -->
+                <div class="col-lg-9">
+                    <div id="busResults" class="bus-results">
+                        <!-- Results will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+        <div class="container py-4 text-center">
+            <p>&copy; 2025 BusGo. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const buses = [
+            { id: 1, name: 'Express Comfort', departure: '08:00', arrival: '14:30', price: 45, type: 'AC', rating: 4.5, seats: 35, amenities: ['WiFi', 'AC', 'USB Charger'] },
+            { id: 2, name: 'Quick Rider', departure: '10:15', arrival: '16:45', price: 35, type: 'Non-AC', rating: 4.2, seats: 12, amenities: ['AC', 'USB Charger'] },
+            { id: 3, name: 'Sleeper Pro', departure: '20:00', arrival: '06:30', price: 65, type: 'Sleeper', rating: 4.8, seats: 8, amenities: ['WiFi', 'AC', 'Bed', 'USB'] },
+            { id: 4, name: 'City Shuttle', departure: '12:30', arrival: '18:00', price: 40, type: 'AC', rating: 4.3, seats: 20, amenities: ['WiFi', 'AC', 'Water'] },
+            { id: 5, name: 'Premium Travel', departure: '14:00', arrival: '20:15', price: 55, type: 'AC', rating: 4.7, seats: 5, amenities: ['WiFi', 'Premium AC', 'Snacks', 'USB'] },
+            { id: 6, name: 'Budget Lines', departure: '06:00', arrival: '12:30', price: 28, type: 'Non-AC', rating: 3.9, seats: 25, amenities: ['AC', 'Water'] }
+        ];
+
+        function displayResults() {
+            const searchData = JSON.parse(localStorage.getItem('searchData')) || {};
+            document.getElementById('searchTitle').textContent = `Buses from ${searchData.from} to ${searchData.to}`;
+            document.getElementById('searchDetails').textContent = `Date: ${searchData.date} | Passengers: ${searchData.passengers}`;
+            
+            renderBuses(buses);
+        }
+
+        function renderBuses(busesToShow) {
+            const resultsDiv = document.getElementById('busResults');
+            resultsDiv.innerHTML = busesToShow.map(bus => `
+                <div class="bus-card fade-in">
+                    <div class="bus-header">
+                        <div>
+                            <h5 class="mb-1">${bus.name}</h5>
+                            <p class="text-muted small mb-0">${bus.type} Bus</p>
+                        </div>
+                        <div class="text-end">
+                            <div class="rating">
+                                <i class="fas fa-star"></i> ${bus.rating}
+                            </div>
+                            <p class="text-muted small">${bus.seats} seats left</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bus-details">
+                        <div class="time-section">
+                            <div>
+                                <p class="time-large">${bus.departure}</p>
+                                <p class="text-muted small">Departure</p>
+                            </div>
+                            <div class="journey-duration">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                            <div>
+                                <p class="time-large">${bus.arrival}</p>
+                                <p class="text-muted small">Arrival</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bus-amenities mb-3">
+                        ${bus.amenities.map(a => `<span class="amenity-tag">${a}</span>`).join('')}
+                    </div>
+
+                    <div class="bus-footer">
+                        <div>
+                            <p class="text-muted small">Starting from</p>
+                            <h4 class="price"><span class="currency">₹</span>${bus.price * 83}</h4>
+                        </div>
+                        <button class="btn btn-primary" onclick="selectBus(${bus.id})">Select & Continue</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function selectBus(busId) {
+            const selectedBus = buses.find(b => b.id === busId);
+            localStorage.setItem('selectedBus', JSON.stringify(selectedBus));
+            window.location.href = 'booking.html';
+        }
+
+        // Filter logic
+        document.getElementById('priceRange').addEventListener('change', function(e) {
+            document.getElementById('priceValue').textContent = '$' + e.target.value;
+        });
+
+        displayResults();
+    </script>
+</body>
+</html>

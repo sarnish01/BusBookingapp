@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Seats - BusGo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient sticky-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="fas fa-bus me-2"></i>BusGo
+            </a>
+        </div>
+    </nav>
+
+    <!-- Progress Bar -->
+    <div class="progress-section">
+        <div class="container">
+            <div class="progress-steps">
+                <div class="step active">
+                    <div class="step-number">1</div>
+                    <p>Seats</p>
+                </div>
+                <div class="step-line"></div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <p>Passenger</p>
+                </div>
+                <div class="step-line"></div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <p>Payment</p>
+                </div>
+                <div class="step-line"></div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <p>Confirm</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Section -->
+    <section class="booking-section py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Bus Layout -->
+                <div class="col-lg-8 mb-4">
+                    <div class="seat-selection-card">
+                        <h4 class="mb-4">Select Your Seats</h4>
+                        
+                        <div class="bus-layout">
+                            <div class="bus-front">
+                                <i class="fas fa-circle-notch"></i>
+                                <p>Front</p>
+                            </div>
+
+                            <div class="seats-container" id="seatsContainer">
+                                <!-- Seats will be generated here -->
+                            </div>
+                        </div>
+
+                        <div class="seat-legend mt-5">
+                            <div class="d-flex gap-4 flex-wrap">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="seat-icon available"></div>
+                                    <span>Available</span>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="seat-icon selected"></div>
+                                    <span>Selected</span>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="seat-icon booked"></div>
+                                    <span>Booked</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking Summary -->
+                <div class="col-lg-4">
+                    <div class="booking-summary-card">
+                        <h5>Booking Summary</h5>
+                        <hr>
+                        
+                        <div class="mb-3">
+                            <p class="text-muted small mb-1">Bus Name</p>
+                            <p id="busName" class="fw-bold">-</p>
+                        </div>
+
+                        <div class="mb-3">
+                            <p class="text-muted small mb-1">Selected Seats</p>
+                            <div id="selectedSeatsDisplay" class="mb-2">
+                                <p class="text-muted">No seat selected</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <p class="text-muted small mb-1">Number of Seats</p>
+                            <p id="numSeats" class="fw-bold">0</p>
+                        </div>
+
+                        <hr>
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Base Fare</span>
+                                <span id="baseFare">₹0</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Taxes</span>
+                                <span id="taxes">₹0</span>
+                            </div>
+                            <div class="d-flex justify-content-between fw-bold text-primary" style="font-size: 1.2rem;">
+                                <span>Total</span>
+                                <span id="totalPrice">₹0</span>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary w-100 mt-4" onclick="proceedToPassenger()">Continue to Passenger Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-section mt-5">
+        <div class="container py-4 text-center">
+            <p>&copy; 2025 BusGo. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const selectedSeats = new Set();
+        const bookedSeats = new Set([5, 8, 12, 15, 18, 22]);
+        let totalRows = 10;
+        let seatsPerRow = 4;
+
+        function generateSeats() {
+            const container = document.getElementById('seatsContainer');
+            container.innerHTML = '';
+
+            for (let row = 1; row <= totalRows; row++) {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'seat-row';
+
+                for (let col = 1; col <= seatsPerRow; col++) {
+                    const seatNumber = (row - 1) * seatsPerRow + col;
+                    const seat = document.createElement('button');
+                    seat.type = 'button';
+                    seat.className = 'seat';
+                    seat.textContent = seatNumber;
+                    seat.dataset.seatNumber = seatNumber;
+
+                    if (bookedSeats.has(seatNumber)) {
+                        seat.classList.add('booked');
+                        seat.disabled = true;
+                    } else {
+                        seat.addEventListener('click', toggleSeat);
+                    }
+
+                    rowDiv.appendChild(seat);
+                }
+
+                container.appendChild(rowDiv);
+            }
+        }
+
+        function toggleSeat(e) {
+            const seatNumber = parseInt(e.target.dataset.seatNumber);
+            const searchData = JSON.parse(localStorage.getItem('searchData')) || {};
+            const maxSeats = parseInt(searchData.passengers) || 1;
+
+            if (selectedSeats.has(seatNumber)) {
+                selectedSeats.delete(seatNumber);
+                e.target.classList.remove('selected');
+            } else {
+                if (selectedSeats.size < maxSeats) {
+                    selectedSeats.add(seatNumber);
+                    e.target.classList.add('selected');
+                } else {
+                    alert(`You can only select ${maxSeats} seat(s)`);
+                }
+            }
+
+            updateSummary();
+        }
+
+        function updateSummary() {
+            const bus = JSON.parse(localStorage.getItem('selectedBus')) || {};
+            const numSeats = selectedSeats.size;
+            const baseFare = (bus.price * 83) * numSeats;
+            const taxes = Math.round(baseFare * 0.1 * 100) / 100;
+            const total = baseFare + taxes;
+
+            document.getElementById('busName').textContent = bus.name || '-';
+            document.getElementById('numSeats').textContent = numSeats;
+            document.getElementById('baseFare').textContent = '₹' + baseFare.toFixed(2);
+            document.getElementById('taxes').textContent = '₹' + taxes.toFixed(2);
+            document.getElementById('totalPrice').textContent = '₹' + total.toFixed(2);
+
+            const seatsArray = Array.from(selectedSeats).sort((a, b) => a - b);
+            document.getElementById('selectedSeatsDisplay').innerHTML = seatsArray.length > 0
+                ? `<p class="fw-bold">${seatsArray.join(', ')}</p>`
+                : '<p class="text-muted">No seat selected</p>';
+        }
+
+        function proceedToPassenger() {
+            if (selectedSeats.size === 0) {
+                alert('Please select at least one seat');
+                return;
+            }
+            localStorage.setItem('selectedSeats', JSON.stringify(Array.from(selectedSeats)));
+            window.location.href = 'passenger.html';
+        }
+
+        generateSeats();
+        updateSummary();
+    </script>
+</body>
+</html>

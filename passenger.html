@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passenger Details - BusGo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient sticky-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="fas fa-bus me-2"></i>BusGo
+            </a>
+        </div>
+    </nav>
+
+    <!-- Progress Bar -->
+    <div class="progress-section">
+        <div class="container">
+            <div class="progress-steps">
+                <div class="step completed">
+                    <div class="step-number"><i class="fas fa-check"></i></div>
+                    <p>Seats</p>
+                </div>
+                <div class="step-line completed"></div>
+                <div class="step active">
+                    <div class="step-number">2</div>
+                    <p>Passenger</p>
+                </div>
+                <div class="step-line"></div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <p>Payment</p>
+                </div>
+                <div class="step-line"></div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <p>Confirm</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Passenger Section -->
+    <section class="passenger-section py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="form-card">
+                        <h4 class="mb-4">Enter Passenger Details</h4>
+                        <form id="passengerForm">
+                            <div id="passengerForms"></div>
+                            <button type="submit" class="btn btn-primary btn-lg w-100 mt-4">Continue to Payment</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Summary Card -->
+                <div class="col-lg-4">
+                    <div class="booking-summary-card sticky-top">
+                        <h5>Booking Summary</h5>
+                        <hr>
+                        <div class="mb-3">
+                            <p class="text-muted small mb-1">Seats</p>
+                            <p id="summarySeats" class="fw-bold">-</p>
+                        </div>
+                        <div class="mb-3">
+                            <p class="text-muted small mb-1">Total Passengers</p>
+                            <p id="summaryPassengers" class="fw-bold">-</p>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between fw-bold" style="font-size: 1.2rem;">
+                            <span>Total</span>
+                            <span id="summaryTotal">$0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-section mt-5">
+        <div class="container py-4 text-center">
+            <p>&copy; 2025 BusGo. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats')) || [];
+        const bus = JSON.parse(localStorage.getItem('selectedBus')) || {};
+        const searchData = JSON.parse(localStorage.getItem('searchData')) || {};
+
+        function generatePassengerForms() {
+            const container = document.getElementById('passengerForms');
+            container.innerHTML = '';
+
+            selectedSeats.forEach((seat, index) => {
+                const formHtml = `
+                    <div class="passenger-form mb-4 fade-in" style="animation-delay: ${index * 0.1}s">
+                        <h6 class="mb-3">Passenger ${index + 1} - Seat ${seat}</h6>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-control input-modern" placeholder="John Doe" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control input-modern" placeholder="john@example.com" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control input-modern" placeholder="+1 (555) 123-4567" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Age</label>
+                                <input type="number" class="form-control input-modern" placeholder="25" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Address</label>
+                                <input type="text" class="form-control input-modern" placeholder="123 Main Street" required>
+                            </div>
+                        </div>
+                        <hr class="my-4">
+                    </div>
+                `;
+                container.innerHTML += formHtml;
+            });
+        }
+
+        function updateSummary() {
+            const bus = JSON.parse(localStorage.getItem('selectedBus')) || {};
+            const baseFare = bus.price * selectedSeats.length;
+            const taxes = Math.round(baseFare * 0.1 * 100) / 100;
+            const total = baseFare + taxes;
+
+            document.getElementById('summarySeats').textContent = selectedSeats.join(', ');
+            document.getElementById('summaryPassengers').textContent = selectedSeats.length;
+            document.getElementById('summaryTotal').textContent = '$' + total.toFixed(2);
+        }
+
+        document.getElementById('passengerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const inputs = document.querySelectorAll('.form-control');
+            const passengerData = [];
+
+            for (let i = 0; i < inputs.length; i += 5) {
+                passengerData.push({
+                    name: inputs[i].value,
+                    email: inputs[i + 1].value,
+                    phone: inputs[i + 2].value,
+                    age: inputs[i + 3].value,
+                    address: inputs[i + 4].value
+                });
+            }
+
+            localStorage.setItem('passengerData', JSON.stringify(passengerData));
+            window.location.href = 'payment.html';
+        });
+
+        generatePassengerForms();
+        updateSummary();
+    </script>
+</body>
+</html>
