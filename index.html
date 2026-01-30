@@ -7,196 +7,242 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Optional smooth scroll -->
+    <style>
+        html{
+            scroll-behavior:smooth;
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient sticky-top">
-        <div class="container-fluid px-4">
-            <a class="navbar-brand fw-bold" href="index.html">
-                <i class="fas fa-bus me-2"></i>BusGo
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-gradient sticky-top">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold" href="index.html">
+            <i class="fas fa-bus me-2"></i>BusGo
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="container-fluid h-100 d-flex align-items-center">
+        <div class="row w-100">
+            <div class="col-lg-6 d-flex align-items-center">
+                <div class="hero-content fade-in">
+                    <h1 class="display-4 fw-bold mb-4">Your Journey,<br>Our Priority</h1>
+                    <p class="lead mb-4">
+                        Book comfortable bus tickets online with exclusive deals and instant confirmations.
+                    </p>
+
+                    <!-- ONLY CHANGE HERE -->
+                    <a href="#search" class="btn btn-primary btn-lg">
+                        Start Booking
+                    </a>
+
+                </div>
+            </div>
+            <div class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center">
+                <div class="hero-bus slide-up">
+                    <i class="fas fa-bus"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Search Form Section -->
+<!-- ONLY CHANGE HERE : id="search" -->
+<section id="search" class="search-section py-5">
+    <div class="container">
+        <div class="search-card shadow-lg">
+            <h2 class="text-center mb-4">Find & Book Tickets</h2>
+
+            <form onsubmit="handleSearch(event)">
+                <div class="row g-3">
+
+                    <div class="col-md-5">
+                        <label class="form-label">From</label>
+                        <input type="text" class="form-control input-modern"
+                               id="fromLocation" placeholder="Departure City" required>
+                    </div>
+
+                    <div class="col-md-5">
+                        <label class="form-label">To</label>
+                        <input type="text" class="form-control input-modern"
+                               id="toLocation" placeholder="Arrival City" required>
+                    </div>
+
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="button" class="btn btn-swap w-100" title="Swap locations">
+                            <i class="fas fa-exchange-alt"></i>
+                        </button>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Depart</label>
+                        <input type="date" class="form-control input-modern"
+                               id="departDate" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Return (Optional)</label>
+                        <input type="date" class="form-control input-modern"
+                               id="returnDate">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Passengers</label>
+                        <select class="form-control input-modern" id="passengers">
+                            <option value="1">1 Passenger</option>
+                            <option value="2">2 Passengers</option>
+                            <option value="3">3 Passengers</option>
+                            <option value="4">4 Passengers</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary btn-lg w-100">
+                            Search Buses
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Why Choose BusGo?</h2>
+        <div class="row g-4">
+
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h5>Real-Time Updates</h5>
+                    <p>Get instant notifications about your bus status and arrival time.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h5>Secure Payment</h5>
+                    <p>Safe and encrypted transactions for your peace of mind.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <h5>Best Prices</h5>
+                    <p>Compare prices and get the best deals on bus tickets.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h5>24/7 Support</h5>
+                    <p>Our customer support team is always ready to help you.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer-section">
+    <div class="container py-5">
+        <div class="row">
+
+            <div class="col-md-4 mb-4">
+                <h5>BusGo</h5>
+                <p>Your trusted partner for comfortable and affordable travel.</p>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-decoration-none">About Us</a></li>
+                    <li><a href="#" class="text-decoration-none">Contact</a></li>
+                    <li><a href="#" class="text-decoration-none">Privacy Policy</a></li>
                 </ul>
             </div>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="hero-overlay"></div>
-        <div class="container-fluid h-100 d-flex align-items-center">
-            <div class="row w-100">
-                <div class="col-lg-6 d-flex align-items-center">
-                    <div class="hero-content fade-in">
-                        <h1 class="display-4 fw-bold mb-4">Your Journey,<br>Our Priority</h1>
-                        <p class="lead mb-4">Book comfortable bus tickets online with exclusive deals and instant confirmations.</p>
-                        <a href="search-results.html" class="btn btn-primary btn-lg">Start Booking</a>
-                    </div>
-                </div>
-                <div class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center">
-                    <div class="hero-bus slide-up">
-                        <i class="fas fa-bus"></i>
-                    </div>
+            <div class="col-md-4 mb-4">
+                <h5>Follow Us</h5>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
+
         </div>
-    </section>
 
-    <!-- Search Form Section -->
-    <section class="search-section py-5">
-        <div class="container">
-            <div class="search-card shadow-lg">
-                <h2 class="text-center mb-4">Find & Book Tickets</h2>
-                <form onsubmit="handleSearch(event)">
-                    <div class="row g-3">
-                        <div class="col-md-5">
-                            <label class="form-label">From</label>
-                            <input type="text" class="form-control input-modern" id="fromLocation" placeholder="Departure City" value="" required>
-                        </div>
-                        <div class="col-md-5">
-                            <label class="form-label">To</label>
-                            <input type="text" class="form-control input-modern" id="toLocation" placeholder="Arrival City" value="" required>
-                        </div>
-                        <div class="col-md-2 d-flex align-items-end">
-                            <button type="button" class="btn btn-swap w-100" title="Swap locations">
-                                <i class="fas fa-exchange-alt"></i>
-                            </button>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Depart</label>
-                            <input type="date" class="form-control input-modern" id="departDate" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Return (Optional)</label>
-                            <input type="date" class="form-control input-modern" id="returnDate">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Passengers</label>
-                            <select class="form-control input-modern" id="passengers">
-                                <option value="1">1 Passenger</option>
-                                <option value="2">2 Passengers</option>
-                                <option value="3">3 Passengers</option>
-                                <option value="4">4 Passengers</option>
-                            </select>
-                        </div>
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary btn-lg w-100">Search Buses</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+        <hr>
+
+        <div class="text-center">
+            <p>&copy; 2025 BusGo. All rights reserved.</p>
         </div>
-    </section>
+    </div>
+</footer>
 
-    <!-- Features Section -->
-    <section class="features-section py-5">
-        <div class="container">
-            <h2 class="text-center mb-5">Why Choose BusGo?</h2>
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-3">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <h5>Real-Time Updates</h5>
-                        <p>Get instant notifications about your bus status and arrival time.</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <h5>Secure Payment</h5>
-                        <p>Safe and encrypted transactions for your peace of mind.</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-tag"></i>
-                        </div>
-                        <h5>Best Prices</h5>
-                        <p>Compare prices and get the best deals on bus tickets.</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-headset"></i>
-                        </div>
-                        <h5>24/7 Support</h5>
-                        <p>Our customer support team is always ready to help you.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Footer -->
-    <footer class="footer-section">
-        <div class="container py-5">
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <h5>BusGo</h5>
-                    <p>Your trusted partner for comfortable and affordable travel.</p>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-decoration-none">About Us</a></li>
-                        <li><a href="#" class="text-decoration-none">Contact</a></li>
-                        <li><a href="#" class="text-decoration-none">Privacy Policy</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <h5>Follow Us</h5>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="text-center">
-                <p>&copy; 2025 BusGo. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+<script>
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('departDate').min = today;
+    document.getElementById('returnDate').min = today;
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Set minimum date to today
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('departDate').min = today;
-        document.getElementById('returnDate').min = today;
+    document.querySelector('.btn-swap').addEventListener('click', function () {
+        const from = document.getElementById('fromLocation');
+        const to = document.getElementById('toLocation');
+        [from.value, to.value] = [to.value, from.value];
+    });
 
-        // Swap locations
-        document.querySelector('.btn-swap').addEventListener('click', function() {
-            const from = document.getElementById('fromLocation');
-            const to = document.getElementById('toLocation');
-            [from.value, to.value] = [to.value, from.value];
-        });
+    function handleSearch(e) {
+        e.preventDefault();
 
-        function handleSearch(e) {
-            e.preventDefault();
-            const from = document.getElementById('fromLocation').value;
-            const to = document.getElementById('toLocation').value;
-            const date = document.getElementById('departDate').value;
-            const passengers = document.getElementById('passengers').value;
-            
-            // Store search data
-            localStorage.setItem('searchData', JSON.stringify({from, to, date, passengers}));
-            window.location.href = 'search-results.html';
-        }
-    </script>
+        const from = document.getElementById('fromLocation').value;
+        const to = document.getElementById('toLocation').value;
+        const date = document.getElementById('departDate').value;
+        const passengers = document.getElementById('passengers').value;
+
+        localStorage.setItem(
+            'searchData',
+            JSON.stringify({ from, to, date, passengers })
+        );
+
+        window.location.href = 'search-results.html';
+    }
+</script>
+
 </body>
 </html>
